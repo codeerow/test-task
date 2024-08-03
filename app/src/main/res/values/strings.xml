@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TestTaskAura</string>
+    <string name="boot_information">Boot Information</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="interval_between_dismissals_minutes">Interval between dismissals (minutes)</string>
+    <string name="total_dismissals_allowed">Total dismissals allowed</string>
 </resources>

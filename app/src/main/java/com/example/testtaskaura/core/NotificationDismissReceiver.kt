@@ -21,11 +21,15 @@ class NotificationDismissReceiver : BroadcastReceiver() {
             context?.let {
                 val preferences = it.getSharedPreferences("dismiss_prefs", Context.MODE_PRIVATE)
                 val dismissCount = preferences.getInt("dismiss_count", 0) + 1
+                val totalDismissalsAllowed = preferences.getInt("total_dismissals_allowed", 0)
+                val intervalBetweenDismissals = preferences.getInt("interval_between_dismissals", 0)
+
                 val editor = preferences.edit()
                 editor.putInt("dismiss_count", dismissCount)
                 editor.apply()
 
-                val delayMinutes = if (dismissCount <= 5) dismissCount * 20L else 15L
+                val delayMinutes = if (dismissCount <= totalDismissalsAllowed) dismissCount * intervalBetweenDismissals.toLong()
+                else 15L
                 Log.d(
                     "NotificationDismissReceiver",
                     "I will show a notification in $delayMinutes minutes"
