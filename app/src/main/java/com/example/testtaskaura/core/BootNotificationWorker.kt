@@ -2,7 +2,9 @@ package com.example.testtaskaura.core
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
@@ -82,11 +84,21 @@ class BootNotificationWorker(
             notificationManager.createNotificationChannel(channel)
         }
 
+        val dismissIntent = Intent(applicationContext, NotificationDismissReceiver::class.java).apply {
+            action = "DISMISS_NOTIFICATION"
+            putExtra("notification_id", notificationId) // TODO: magic string
+        }
+        val dismissPendingIntent = PendingIntent.getBroadcast(
+            applicationContext, 0, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
         val builder = NotificationCompat.Builder(applicationContext, channelId)
             .setSmallIcon(android.R.drawable.star_on)
             .setContentTitle("Boot Event Notification")
             .setContentText(text)
+            .addAction(android.R.drawable.ic_notification_clear_all, "Dismiss", dismissPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setOngoing(true) // TODO: will not work for Android 14, make it non-cancellable somehow or find a way how to
 
         with(NotificationManagerCompat.from(applicationContext)) {
             notify(notificationId, builder.build()) // TODO: ask for permissions on app start
