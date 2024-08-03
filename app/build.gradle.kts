@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -45,4 +46,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler) // TODO: migrate to ksp
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.koin.android)
+
 }
