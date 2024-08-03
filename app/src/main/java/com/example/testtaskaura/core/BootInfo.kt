@@ -1,4 +1,4 @@
-package com.example.testtaskaura
+package com.example.testtaskaura.core
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

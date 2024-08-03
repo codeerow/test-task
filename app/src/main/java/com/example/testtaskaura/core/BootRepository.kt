@@ -1,4 +1,4 @@
-package com.example.testtaskaura
+package com.example.testtaskaura.core
 
 import kotlinx.coroutines.flow.Flow
 

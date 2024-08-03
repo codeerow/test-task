@@ -1,4 +1,4 @@
-package com.example.testtaskaura
+package com.example.testtaskaura.ui
 
 import android.os.Bundle
 import android.widget.TextView
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.testtaskaura.R
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
