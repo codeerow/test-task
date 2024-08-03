@@ -11,4 +11,8 @@ class BootRepository(
     suspend fun insert(bootInfo: BootInfo) {
         bootInfoDao.insert(bootInfo)
     }
+
+    suspend fun getAllBootInfoSync(): List<BootInfo> {
+        return bootInfoDao.getAllBootInfoSync()
+    }
 }

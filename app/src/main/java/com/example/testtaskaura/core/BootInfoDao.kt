@@ -12,4 +12,7 @@ interface BootInfoDao {
 
     @Query("SELECT * FROM boot_info ORDER BY date DESC")
     fun getAllBootInfo(): Flow<List<BootInfo>>
+
+    @Query("SELECT * FROM boot_info ORDER BY date DESC")
+    suspend fun getAllBootInfoSync(): List<BootInfo>
 }
