@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
                 saveSettings()
             }
         }
+        scheduleBootNotificationWorker()
     }
 
     private fun validateInputs(): Boolean {

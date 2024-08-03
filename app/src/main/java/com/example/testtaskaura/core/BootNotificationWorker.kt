@@ -98,7 +98,7 @@ class BootNotificationWorker(
             .setContentText(text)
             .addAction(android.R.drawable.ic_notification_clear_all, "Dismiss", dismissPendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setOngoing(true) // TODO: will not work for Android 14, make it non-cancellable somehow or find a way how to
+            .setOngoing(true) // TODO: will not work for Android 14, make it non-cancellable somehow or find a way how to listen for cancellation
 
         with(NotificationManagerCompat.from(applicationContext)) {
             notify(notificationId, builder.build()) // TODO: ask for permissions on app start

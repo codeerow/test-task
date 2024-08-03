@@ -35,7 +35,7 @@ class NotificationDismissReceiver : BroadcastReceiver() {
                     "I will show a notification in $delayMinutes minutes"
                 )
                 val workRequest = OneTimeWorkRequestBuilder<BootNotificationWorker>()
-                    .setInitialDelay(delayMinutes, TimeUnit.SECONDS)
+                    .setInitialDelay(delayMinutes, TimeUnit.MINUTES)
                     .build()
                 WorkManager.getInstance(it).enqueue(workRequest)
             }
