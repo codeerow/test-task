@@ -5,16 +5,12 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.example.testtaskaura.R
-import com.example.testtaskaura.core.BootInfo
 import com.example.testtaskaura.core.BootNotificationWorker
-import kotlinx.coroutines.launch
+import com.example.testtaskaura.ui.utils.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 // TODO: clean up
 class MainActivity : AppCompatActivity() {
@@ -32,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         loadSettings()
-        displayBootInfo()
-        scheduleBootNotificationWorker()
+        viewModel.bootInfoText.bind(this) { textBootInfo.text = it }
+//        viewModel.toastMessage.bind(this) { message -> message?.let(::showToast) }
         buttonSaveSettings.setOnClickListener {
             if (validateInputs()) {
                 saveSettings()
@@ -94,28 +90,6 @@ class MainActivity : AppCompatActivity() {
             putInt("interval_between_dismissals", intervalBetweenDismissals)
             putInt("dismiss_count", 0) // TODO: I'm not sure that i need to reset this value
             apply()
-        }
-    }
-
-    private fun displayBootInfo() {
-        lifecycleScope.launch {
-            viewModel.allBootInfo.collect { bootInfoList ->
-                val text = generateBootInfoText(bootInfoList)
-                textBootInfo.text = text
-            }
-        }
-    }
-
-    private fun generateBootInfoText(bootInfoList: List<BootInfo>): String {
-        if (bootInfoList.isEmpty()) {
-            return "No boots detected"
-        }
-
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val bootInfoMap = bootInfoList.groupBy { dateFormat.format(it.date) }
-
-        return bootInfoMap.entries.joinToString(separator = "\n") { (date, boots) ->
-            "Date: $date, Boot events: ${boots.size}"
         }
     }
 
